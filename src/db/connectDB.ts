@@ -1,9 +1,4 @@
-type User = {
-  id: string;
-  username: string;
-  age: number;
-  hobbies: string[];
-};
+import { User } from '../types/types';
 
 type DB = {
   users: User[];
