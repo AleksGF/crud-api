@@ -57,3 +57,11 @@ export const handleSuccessfulUserCreationRequest = async (
   res.writeHead(HttpStatusCodes.CREATED_201, ContentTypeHeader.JSON);
   res.end(JSON.stringify(user));
 };
+
+export const handleSuccessfulUserUpdateRequest = async (
+  res: ServerResponse,
+  user: User,
+) => {
+  res.writeHead(HttpStatusCodes.OK_200, ContentTypeHeader.JSON);
+  res.end(JSON.stringify(user));
+};

@@ -11,6 +11,10 @@ export interface DBServices {
   getUsers(): Promise<User[]>;
   getUserById(id: string): Promise<User | undefined>;
   createUser(newUser: UserWithoutId): Promise<User>;
+  updateUser(
+    userId: string,
+    userData: Partial<UserWithoutId>,
+  ): Promise<User | undefined>;
 }
 
 export enum HttpMethods {

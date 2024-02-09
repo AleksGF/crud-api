@@ -1,6 +1,7 @@
 import { connectDB } from '../../db/connectDB';
 import { IncomingMessage, ServerResponse } from 'http';
 import { User, UserWithoutId } from '../../types/types';
+import { getDataFromRequest } from '../../utils/getDataFromRequest';
 import {
   handleInternalError,
   handleInvalidRequest,
@@ -21,23 +22,6 @@ const isUserDataValid = (user: unknown): user is UserWithoutId => {
     user.hobbies.some((hobby) => typeof hobby !== 'string')
   );
 };
-
-const getDataFromRequest = (req: IncomingMessage): Promise<string> =>
-  new Promise((resolve, reject) => {
-    let data = '';
-
-    req.on('data', (chunk) => {
-      data += chunk;
-    });
-
-    req.on('end', () => {
-      resolve(data);
-    });
-
-    req.on('error', (error) => {
-      reject(error);
-    });
-  });
 
 export const handlePostRequest = async (
   req: IncomingMessage,

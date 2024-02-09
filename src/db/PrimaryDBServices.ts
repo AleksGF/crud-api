@@ -38,4 +38,18 @@ export class PrimaryDBServices implements DBServices {
 
     return user;
   }
+
+  public async updateUser(userId: string, userData: Partial<UserWithoutId>) {
+    const user = this.users.find((user) => user.id === userId);
+
+    if (!user) {
+      return;
+    }
+
+    user.username = userData.username ?? user.username;
+    user.age = userData.age ?? user.age;
+    user.hobbies = userData.hobbies ?? user.hobbies;
+
+    return user;
+  }
 }
