@@ -1,11 +1,5 @@
-import { User } from '../types/types';
+import cluster from 'cluster';
+import { PrimaryDBServices } from './PrimaryDBServices';
 
-type DB = {
-  users: User[];
-};
-
-const db: DB = {
-  users: [],
-};
-
-export const connectDB = async () => db;
+export const connectDB = () =>
+  cluster.isPrimary ? new PrimaryDBServices() : new PrimaryDBServices();

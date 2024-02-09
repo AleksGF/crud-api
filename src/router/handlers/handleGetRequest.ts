@@ -1,7 +1,6 @@
 import { validate as uuidValidate } from 'uuid';
 import { IncomingMessage, ServerResponse } from 'http';
-import { getUserById } from '../../services/getUserById';
-import { getUsers } from '../../services/getUsers';
+import { connectDB } from '../../db/connectDB';
 import {
   handleInvalidRequest,
   handleInvalidUUIDRequest,
@@ -14,6 +13,7 @@ export const handleGetRequest = async (
   req: IncomingMessage,
   res: ServerResponse,
 ) => {
+  const db = connectDB();
   const userPattern = /^\/api\/users\/?(([a-fA-F0-9-]+)\/?)?$/;
   const match = req.url?.match(userPattern);
 
@@ -29,7 +29,7 @@ export const handleGetRequest = async (
 
   // Handle '/api/users' endpoint
   if (!userId) {
-    const users = await getUsers();
+    const users = await db.getUsers();
     await handleSuccessfulUsersRequest(res, users);
 
     return;
@@ -42,7 +42,7 @@ export const handleGetRequest = async (
     return;
   }
 
-  const user = await getUserById(userId);
+  const user = await db.getUserById(userId);
 
   if (!user) {
     await handleInvalidUserRequest(res);

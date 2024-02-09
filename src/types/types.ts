@@ -5,6 +5,14 @@ export type User = {
   hobbies: string[];
 };
 
+export type UserWithoutId = Omit<User, 'id'>;
+
+export interface DBServices {
+  getUsers(): Promise<User[]>;
+  getUserById(id: string): Promise<User | undefined>;
+  createUser(newUser: UserWithoutId): Promise<User>;
+}
+
 export enum HttpMethods {
   GET = 'GET',
   POST = 'POST',
@@ -27,6 +35,7 @@ export enum HttpStatusMessages {
   CREATED_201 = 'Created',
   NO_CONTENT_204 = 'No Content',
   ID_NOT_VALID_400 = 'User ID is not a valid',
+  USER_DATA_NOT_VALID_400 = 'User data is not valid',
   NOT_FOUND_404 = 'Not Found',
   NO_USER_FOUND_404 = 'No user found',
   METHOD_NOT_ALLOWED_405 = 'Method Not Allowed',
