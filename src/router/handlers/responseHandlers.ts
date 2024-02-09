@@ -65,3 +65,10 @@ export const handleSuccessfulUserUpdateRequest = async (
   res.writeHead(HttpStatusCodes.OK_200, ContentTypeHeader.JSON);
   res.end(JSON.stringify(user));
 };
+
+export const handleSuccessfulUserDeleteRequest = async (
+  res: ServerResponse,
+) => {
+  res.writeHead(HttpStatusCodes.NO_CONTENT_204, ContentTypeHeader.TEXT);
+  res.end();
+};

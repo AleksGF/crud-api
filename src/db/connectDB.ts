@@ -1,5 +1,7 @@
 import cluster from 'cluster';
 import { PrimaryDBServices } from './PrimaryDBServices';
 
+const db = new PrimaryDBServices();
+
 export const connectDB = () =>
-  cluster.isPrimary ? new PrimaryDBServices() : new PrimaryDBServices();
+  cluster.isPrimary ? db : new PrimaryDBServices();

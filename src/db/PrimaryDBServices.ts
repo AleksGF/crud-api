@@ -1,25 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 import { User, DBServices, UserWithoutId } from '../types/types';
 
-//TODO: Remove it
-const users: User[] = [];
-
-for (let i = 0; i < 20; i++) {
-  const id = uuidv4();
-
-  users.push({
-    id,
-    username: `UserName${i}`,
-    age: 20 + i,
-    hobbies: [`test${i}`],
-  });
-}
-
 export class PrimaryDBServices implements DBServices {
-  private readonly users: User[];
+  private users: User[];
 
   constructor() {
-    this.users = users;
+    this.users = [];
   }
 
   public async getUsers() {
@@ -51,5 +37,13 @@ export class PrimaryDBServices implements DBServices {
     user.hobbies = userData.hobbies ?? user.hobbies;
 
     return user;
+  }
+
+  public async deleteUser(userId: string) {
+    const usersCount = this.users.length;
+
+    this.users = this.users.filter((user) => user.id !== userId);
+
+    return usersCount !== this.users.length;
   }
 }

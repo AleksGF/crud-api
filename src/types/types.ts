@@ -15,6 +15,7 @@ export interface DBServices {
     userId: string,
     userData: Partial<UserWithoutId>,
   ): Promise<User | undefined>;
+  deleteUser(userId: string): Promise<boolean>;
 }
 
 export enum HttpMethods {
