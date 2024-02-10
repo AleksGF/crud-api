@@ -2,26 +2,13 @@ import { connectDB } from '../../db/connectDB';
 import { IncomingMessage, ServerResponse } from 'http';
 import { User, UserWithoutId } from '../../types/types';
 import { getDataFromRequest } from '../../utils/getDataFromRequest';
+import { isUserDataValid } from '../../utils/validators';
 import {
   handleInternalError,
   handleInvalidRequest,
   handleInvalidUserDataRequest,
   handleSuccessfulUserCreationRequest,
 } from './responseHandlers';
-
-const isUserDataValid = (user: unknown): user is UserWithoutId => {
-  return !(
-    !user ||
-    typeof user !== 'object' ||
-    !('username' in user) ||
-    typeof user.username !== 'string' ||
-    !('age' in user) ||
-    typeof user.age !== 'number' ||
-    !('hobbies' in user) ||
-    !Array.isArray(user.hobbies) ||
-    user.hobbies.some((hobby) => typeof hobby !== 'string')
-  );
-};
 
 export const handlePostRequest = async (
   req: IncomingMessage,
@@ -40,15 +27,7 @@ export const handlePostRequest = async (
 
   try {
     const data = await getDataFromRequest(req);
-    let newUser: UserWithoutId;
-
-    try {
-      newUser = JSON.parse(data);
-    } catch (e) {
-      await handleInvalidUserDataRequest(res);
-
-      return;
-    }
+    const newUser: UserWithoutId = JSON.parse(data);
 
     if (!isUserDataValid(newUser)) {
       await handleInvalidUserDataRequest(res);
@@ -60,6 +39,10 @@ export const handlePostRequest = async (
 
     await handleSuccessfulUserCreationRequest(res, user);
   } catch (error) {
-    await handleInternalError(res);
+    if (error instanceof SyntaxError) {
+      await handleInvalidUserDataRequest(res);
+    } else {
+      await handleInternalError(res);
+    }
   }
 };

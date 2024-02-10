@@ -36,9 +36,6 @@ export enum HttpStatusCodes {
 }
 
 export enum HttpStatusMessages {
-  OK_200 = 'OK',
-  CREATED_201 = 'Created',
-  NO_CONTENT_204 = 'No Content',
   ID_NOT_VALID_400 = 'User ID is not a valid',
   USER_DATA_NOT_VALID_400 = 'User data is not valid',
   NOT_FOUND_404 = 'Not Found',
