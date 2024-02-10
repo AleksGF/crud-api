@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { validate as uuidValidate } from 'uuid';
-import { connectDB } from '../../db/connectDB';
+import { connectDB } from '../dbServices';
 import {
   handleInvalidRequest,
   handleInvalidUUIDRequest,

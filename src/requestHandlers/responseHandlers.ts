@@ -4,7 +4,7 @@ import {
   HttpStatusCodes,
   HttpStatusMessages,
   User,
-} from '../../types/types';
+} from '../types/types';
 
 export const handleInvalidRequest = async (res: ServerResponse) => {
   res.writeHead(HttpStatusCodes.NOT_FOUND_404, ContentTypeHeader.TEXT);

@@ -1,5 +1,10 @@
 import dotenv from 'dotenv';
-import { app } from './app';
+import { appSingleMode, appMultiMode } from './app';
 
 dotenv.config();
-app();
+
+if (process.argv.includes('--multi')) {
+  appMultiMode();
+} else {
+  appSingleMode();
+}

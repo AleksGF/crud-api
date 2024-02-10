@@ -1,3 +1,5 @@
+import { Worker } from 'cluster';
+
 export type User = {
   id: string;
   username: string;
@@ -17,6 +19,12 @@ export interface DBServices {
   ): Promise<User | undefined>;
   deleteUser(userId: string): Promise<boolean>;
 }
+
+export type Workers = {
+  worker: Worker;
+  host: 'localhost';
+  port: number;
+}[];
 
 export enum HttpMethods {
   GET = 'GET',
@@ -47,4 +55,35 @@ export enum HttpStatusMessages {
 export const ContentTypeHeader = {
   TEXT: { 'Content-Type': 'text/plain' },
   JSON: { 'Content-Type': 'application/json' },
+};
+
+export type WorkerDBAction =
+  | {
+      type: 'getUsers';
+    }
+  | {
+      type: 'getUserById';
+      payload: { userId: string };
+    }
+  | {
+      type: 'createUser';
+      payload: { userData: UserWithoutId };
+    }
+  | {
+      type: 'updateUser';
+      payload: { userId: string; userData: Partial<UserWithoutId> };
+    }
+  | {
+      type: 'deleteUser';
+      payload: { userId: string };
+    };
+
+export type WorkerDBActionRequest = {
+  msgId: string;
+} & WorkerDBAction;
+
+export type WorkerDBActionResponse = {
+  msgId: string;
+  data?: User[] | User | boolean;
+  error?: string;
 };

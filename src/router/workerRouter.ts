@@ -10,7 +10,7 @@ import {
   handleGetRequest,
   handlePostRequest,
   handlePutRequest,
-} from './handlers';
+} from '../requestHandlers';
 
 const defaultHeaders = [
   { name: 'Access-Control-Allow-Origin', value: '*' },
@@ -21,7 +21,10 @@ const defaultHeaders = [
   { name: 'Access-Control-Allow-Headers', value: 'Content-Type' },
 ];
 
-export const router = async (req: IncomingMessage, res: ServerResponse) => {
+export const workerRouter = async (
+  req: IncomingMessage,
+  res: ServerResponse,
+) => {
   try {
     defaultHeaders.forEach((header) => {
       res.setHeader(header.name, header.value);

@@ -1,8 +1,8 @@
-import { connectDB } from '../../db/connectDB';
+import { connectDB } from '../dbServices';
 import { IncomingMessage, ServerResponse } from 'http';
-import { User, UserWithoutId } from '../../types/types';
-import { getDataFromRequest } from '../../utils/getDataFromRequest';
-import { isUserDataValid } from '../../utils/validators';
+import { User, UserWithoutId } from '../types/types';
+import { getDataFromRequest } from '../utils/getDataFromRequest';
+import { isUserDataValid } from '../utils/validators';
 import {
   handleInternalError,
   handleInvalidRequest,

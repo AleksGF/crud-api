@@ -1,9 +1,9 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { validate as uuidValidate } from 'uuid';
-import { connectDB } from '../../db/connectDB';
-import { UserWithoutId } from '../../types/types';
-import { getDataFromRequest } from '../../utils/getDataFromRequest';
-import { isPartialUserDataValid } from '../../utils/validators';
+import { connectDB } from '../dbServices';
+import { UserWithoutId } from '../types/types';
+import { getDataFromRequest } from '../utils/getDataFromRequest';
+import { isPartialUserDataValid } from '../utils/validators';
 import {
   handleInternalError,
   handleInvalidRequest,
