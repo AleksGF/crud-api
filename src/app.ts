@@ -8,17 +8,19 @@ import { createWorkers } from './workerServices';
 import { getWorkerExitHandler } from './workerServices';
 import { getWorkerMessageHandler } from './workerServices';
 
-let port = Number(env.PORT) || 4000;
-
 export const workerServer = http.createServer(workerRouter);
 
 export const appSingleMode = (): void => {
+  const port = Number(env.PORT) || 4000;
+
   workerServer.listen(port, () =>
     console.log(`Server listening on port ${port}`),
   );
 };
 
 export const appMultiMode = async (): Promise<void> => {
+  const port = Number(env.PORT) || 4000;
+
   if (cluster.isPrimary) {
     const cpusAmount = os.cpus().length;
 

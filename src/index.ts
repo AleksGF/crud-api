@@ -1,14 +1,10 @@
 import dotenv from 'dotenv';
 import { appSingleMode, appMultiMode } from './app';
 
-export const startApp = () => {
-  dotenv.config();
+dotenv.config();
 
-  if (process.argv.includes('--multi')) {
-    appMultiMode();
-  } else {
-    appSingleMode();
-  }
-};
-
-startApp();
+if (process.argv.includes('--multi')) {
+  appMultiMode();
+} else {
+  appSingleMode();
+}
