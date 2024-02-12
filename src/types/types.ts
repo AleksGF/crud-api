@@ -26,6 +26,10 @@ export type Workers = {
   port: number;
 }[];
 
+export enum ApiPath {
+  USERS = '/api/users',
+}
+
 export enum HttpMethods {
   GET = 'GET',
   POST = 'POST',

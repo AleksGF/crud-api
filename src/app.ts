@@ -8,12 +8,14 @@ import { createWorkers } from './workerServices';
 import { getWorkerExitHandler } from './workerServices';
 import { getWorkerMessageHandler } from './workerServices';
 
-const port = Number(env.PORT) || 4000;
+let port = Number(env.PORT) || 4000;
+
+export const workerServer = http.createServer(workerRouter);
 
 export const appSingleMode = (): void => {
-  http
-    .createServer(workerRouter)
-    .listen(port, () => console.log(`Server listening on port ${port}`));
+  workerServer.listen(port, () =>
+    console.log(`Server listening on port ${port}`),
+  );
 };
 
 export const appMultiMode = async (): Promise<void> => {
@@ -40,10 +42,8 @@ export const appMultiMode = async (): Promise<void> => {
       console.log(`Load balancer listening on port ${port}`),
     );
   } else {
-    http
-      .createServer(workerRouter)
-      .listen(port, () =>
-        console.log(`Worker ${process.pid} server listening on port ${port}`),
-      );
+    workerServer.listen(port, () =>
+      console.log(`Worker ${process.pid} server listening on port ${port}`),
+    );
   }
 };
