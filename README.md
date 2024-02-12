@@ -10,7 +10,7 @@ Instructions:
 - `npm run start:multi` starts multiserver application (you need to have multi-cores CPU);
 - `npm run start:prod` makes production bundle and starts single server;
 - `npm run test` starts available tests suits
-5. After starting server you can get access to it with url `localhost:4000` (or other chosen port number);
+5. After starting server(s) you can get access to it(them) with url `localhost:4000` (or other chosen port number, worker servers would run on next numbers ports - see app console to get port numbers). To test api you can use [Postman](https://www.postman.com/) or any other utility;
 6. You can use endpoints:
 - `/api/users` to GET all users, POST new user;
 - `/api/users/:id` to GET user with id, PUT user change data, DELETE user.
